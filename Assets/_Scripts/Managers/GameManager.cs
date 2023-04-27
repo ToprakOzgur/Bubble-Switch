@@ -13,27 +13,24 @@ public class GameManager : MonoBehaviour
     //Changes the current game state
     public void SetState(System.Type newStateType)
     {
-        if (currentState != null)
-        {
-            currentState.OnDeactivate();
-        }
-
+        currentState?.OnDeactivate();
         currentState = GetComponentInChildren(newStateType) as BaseState;
+        currentState?.OnActivate();
 
-        if (currentState != null)
-        {
-            currentState.OnActivate();
-        }
     }
     private void Start()
     {
-        //  SetState(typeof(MenuState));
+        SetState(typeof(StartState));
     }
     void Update()
     {
-        if (currentState != null)
-        {
-            currentState.OnUpdate();
-        }
+        currentState?.OnUpdate();
     }
+}
+
+public enum GameMode
+{
+    Arcade,
+    Zen,
+
 }

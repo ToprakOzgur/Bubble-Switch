@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Text scoreText;
+    public void SetScore(int score)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        scoreText.text = "SCORE : " + score.ToString();
     }
 }
