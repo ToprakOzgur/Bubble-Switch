@@ -4,16 +4,51 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public static int speed = 3;
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    [HideInInspector]
+    public GameColors ballColor;
+
+    [HideInInspector] public IBallState containerState;
+    [HideInInspector] public IBallState inHTubeState;
+    [HideInInspector] public IBallState inVTubeState;
+    [HideInInspector] public IBallState switchTubeState;
+    [HideInInspector] public IBallState tubeSelectState;
+    [HideInInspector] public IBallState spawnState;
+
+
+
+    private IBallState currentState;
+    public IBallState CurrentState
+    {
+        get { return currentState; }
+        set
+        {
+            currentState?.OnDeactivate();
+            currentState = value;
+            currentState?.OnActivate();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
+        containerState = new ContainerState(this);
+        inHTubeState = new InHTubeState(this);
+        inVTubeState = new InVTubeState(this);
+        switchTubeState = new SwitchTubesState(this);
+        tubeSelectState = new TubeSelectState(this);
+        spawnState = new SpawnState(this);
+
 
     }
+    public void Spawn()
+    {
+        CurrentState = spawnState;
+    }
+    private void Update()
+    {
+        CurrentState.OnUpdate();
+    }
+
 }
+
+

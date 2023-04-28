@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class WayPointsManager : MonoBehaviour
 {
-    [SerializeField]
-    private Transform[] points;
+
+    public Transform[] points;
 }

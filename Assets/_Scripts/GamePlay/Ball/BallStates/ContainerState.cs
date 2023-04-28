@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class ContainerState : IBallState
 {
+    private readonly Ball ball;
+    public ContainerState(Ball ball)
+    {
+        this.ball = ball;
+    }
     public void OnActivate()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void OnDeactivate()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void OnUpdate()
     {
-        throw new System.NotImplementedException();
+
     }
 
 

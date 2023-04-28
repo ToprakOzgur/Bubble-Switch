@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class TubeSelectState : IBallState
 {
+
+    private readonly Ball ball;
+
+    public TubeSelectState(Ball ball)
+    {
+        this.ball = ball;
+    }
     public void OnActivate()
     {
         throw new System.NotImplementedException();

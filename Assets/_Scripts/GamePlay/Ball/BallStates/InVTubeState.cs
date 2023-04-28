@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class InVTubeState : IBallState
 {
+    private readonly Ball ball;
+    public InVTubeState(Ball ball)
+    {
+        this.ball = ball;
+    }
     public void OnActivate()
     {
         throw new System.NotImplementedException();

@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class SpawnState : IBallState
 {
+    private readonly Ball ball;
+    public SpawnState(Ball ball)
+    {
+        this.ball = ball;
+    }
     public void OnActivate()
     {
-        throw new System.NotImplementedException();
+        ball.ballColor = (GameColors)Random.Range(0, System.Enum.GetValues(typeof(GameColors)).Length);
+        ball.CurrentState = ball.inHTubeState;
+
     }
 
     public void OnDeactivate()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void OnUpdate()
     {
-        throw new System.NotImplementedException();
+
     }
 
 
