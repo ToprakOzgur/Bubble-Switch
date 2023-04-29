@@ -7,6 +7,7 @@ public class Ball : MonoBehaviour
 
     [HideInInspector]
     public GameColors ballColor;
+    public Color[] colors;
 
     [HideInInspector] public IBallState containerState;
     [HideInInspector] public IBallState inHTubeState;
@@ -37,8 +38,6 @@ public class Ball : MonoBehaviour
         switchTubeState = new SwitchTubesState(this);
         tubeSelectState = new TubeSelectState(this);
         spawnState = new SpawnState(this);
-
-
     }
     public void Spawn()
     {
@@ -47,6 +46,12 @@ public class Ball : MonoBehaviour
     private void Update()
     {
         CurrentState.OnUpdate();
+    }
+
+    public void SetColor(GameColors ballColor)
+    {
+        this.ballColor = ballColor;
+        GetComponent<SpriteRenderer>().color = colors[(int)ballColor];
     }
 
 }

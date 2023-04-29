@@ -1,13 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [HideInInspector]
+    public GameBase currentGame;
     private BaseState currentState;
     public BaseState CurrentState
     {
         get { return currentState; }
+    }
+
+    private void OnEnable()
+    {
+        StartState.OnGameCreated += GameCreated;
+    }
+
+
+    private void OnDisable()
+    {
+        StartState.OnGameCreated -= GameCreated;
     }
 
     //Changes the current game state
@@ -25,6 +39,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         currentState?.OnUpdate();
+    }
+
+    private void GameCreated(GameBase game)
+    {
+        currentGame = game;
+        SetState(typeof(GamePlayState));
     }
 }
 

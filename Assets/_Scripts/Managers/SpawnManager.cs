@@ -11,6 +11,8 @@ public class SpawnManager : MonoBehaviour
 
     private Queue<Ball> objectPool = new Queue<Ball>();
 
+    private bool isSpawning = true;
+
     private void Awake()
     {
         for (int i = 0; i < poolSize; i++)
@@ -45,6 +47,15 @@ public class SpawnManager : MonoBehaviour
     }
     public void StartSpawn()
     {
-        GetBall().Spawn();
+        StartCoroutine(SpawnLoop());
+    }
+    IEnumerator SpawnLoop()
+    {
+        while (isSpawning)
+        {
+            GetBall().Spawn();
+            yield return new WaitForSeconds(1);
+        }
+
     }
 }

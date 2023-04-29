@@ -26,9 +26,7 @@ public class InHTubeState : IBallState
 
     public void OnUpdate()
     {
-
         float distanceToWaypoint = (ball.transform.position - Managers.WayPoints.points[currentWaypointIndex].position).sqrMagnitude;
-
 
         if (distanceToWaypoint <= minDistance)
         {
@@ -40,13 +38,9 @@ public class InHTubeState : IBallState
                 ball.CurrentState = ball.containerState;
                 return;
             }
-
-
-
         }
 
         ball.transform.position = Vector3.MoveTowards(ball.transform.position, Managers.WayPoints.points[currentWaypointIndex].position, speed * Time.deltaTime);
     }
-
 
 }

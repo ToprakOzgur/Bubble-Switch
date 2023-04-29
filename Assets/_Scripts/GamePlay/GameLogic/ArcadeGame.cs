@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ArcadeGame : GameBase
 {
-    public ArcadeGame() : base()
+    public ArcadeGame(VTube[] vTubes) : base(vTubes)
     {
 
     }
