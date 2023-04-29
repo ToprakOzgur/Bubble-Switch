@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class WayPointsManager : MonoBehaviour
 {
-
     public Transform[] points;
+    public Transform dropPoint;
 }

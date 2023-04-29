@@ -1,19 +1,17 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ContainerState : IBallState
+public class SelectableState : IBallState
 {
-    public static event Action<Ball> OnBallInContainer = delegate { };
     private readonly Ball ball;
-    public ContainerState(Ball ball)
+    public SelectableState(Ball ball)
     {
         this.ball = ball;
     }
     public void OnActivate()
     {
-        OnBallInContainer(ball);
+
     }
 
     public void OnDeactivate()
@@ -21,12 +19,12 @@ public class ContainerState : IBallState
 
     }
 
-    public void OnUpdate()
+    public void OnMouseDown()
     {
-
+        ball.CurrentState = ball.selectedState;
     }
 
-    public void OnMouseDown()
+    public void OnUpdate()
     {
 
     }

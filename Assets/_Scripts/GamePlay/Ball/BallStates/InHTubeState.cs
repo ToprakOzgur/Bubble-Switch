@@ -24,6 +24,11 @@ public class InHTubeState : IBallState
 
     }
 
+    public void OnMouseDown()
+    {
+
+    }
+
     public void OnUpdate()
     {
         float distanceToWaypoint = (ball.transform.position - Managers.WayPoints.points[currentWaypointIndex].position).sqrMagnitude;

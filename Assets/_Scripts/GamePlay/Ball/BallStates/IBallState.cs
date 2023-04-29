@@ -7,4 +7,6 @@ public interface IBallState
     void OnActivate();
     void OnDeactivate();
     void OnUpdate();
+    void OnMouseDown();
+
 }

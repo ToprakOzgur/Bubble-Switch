@@ -23,6 +23,11 @@ public class SpawnState : IBallState
 
     }
 
+    public void OnMouseDown()
+    {
+
+    }
+
     public void OnUpdate()
     {
 

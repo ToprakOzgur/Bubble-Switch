@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tube_Red_Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8458217360541096862, guid: 8c3b427de93fa4daba117eb171587127, type: 3}
+      propertyPath: index
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8458217360650468694, guid: 8c3b427de93fa4daba117eb171587127, type: 3}
       propertyPath: m_Color.b
       value: 0.032707386

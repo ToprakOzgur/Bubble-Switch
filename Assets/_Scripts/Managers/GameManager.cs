@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public GameBase currentGame;
     private BaseState currentState;
+
     public BaseState CurrentState
     {
         get { return currentState; }
@@ -46,11 +47,11 @@ public class GameManager : MonoBehaviour
         currentGame = game;
         SetState(typeof(GamePlayState));
     }
-}
 
-public enum GameMode
-{
-    Arcade,
-    Zen,
+    public IEnumerator DelayExecuter(Action action, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        action();
+    }
 
 }

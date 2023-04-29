@@ -4,25 +4,17 @@ using UnityEngine;
 
 public class Ease
 {
-    //quote from:  https://github.com/acron0/Easings
+    // quote from: https://gist.github.com/xanathar/735e17ac129a72a277ee
 
-    public static float BounceEaseOut(float p)
+    public static float BounceEaseOut(float t, float b, float c, float d)
     {
-        if (p < 4 / 11.0f)
-        {
-            return (121 * p * p) / 16.0f;
-        }
-        else if (p < 8 / 11.0f)
-        {
-            return (363 / 40.0f * p * p) - (99 / 10.0f * p) + 17 / 5.0f;
-        }
-        else if (p < 9 / 10.0f)
-        {
-            return (4356 / 361.0f * p * p) - (35442 / 1805.0f * p) + 16061 / 1805.0f;
-        }
+        if ((t /= d) < (1f / 2.75f))
+            return c * (7.5625f * t * t) + b;
+        else if (t < (2f / 2.75f))
+            return c * (7.5625f * (t -= (1.5f / 2.75f)) * t + .75f) + b;
+        else if (t < (2.5f / 2.75f))
+            return c * (7.5625f * (t -= (2.25f / 2.75f)) * t + .9375f) + b;
         else
-        {
-            return (54 / 5.0f * p * p) - (513 / 25.0f * p) + 268 / 25.0f;
-        }
+            return c * (7.5625f * (t -= (2.625f / 2.75f)) * t + .984375f) + b;
     }
 }

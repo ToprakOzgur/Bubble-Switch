@@ -20,6 +20,11 @@ public class SwitchTubesState : IBallState
         throw new System.NotImplementedException();
     }
 
+    public void OnMouseDown()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void OnUpdate()
     {
         throw new System.NotImplementedException();
