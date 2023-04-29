@@ -71,8 +71,10 @@ public abstract class GameBase
                     vTube.balls.Remove(ball);
                 }
 
+
                 if (dropBalls.Count > 0)
                 {
+                    vTube.MoveDown();
                     return;
                 }
             }

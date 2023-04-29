@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,23 @@ public class VTube : MonoBehaviour
         ball.CurrentState = ball.inVTubeState;
     }
 
+    public void MoveDown()
+    {
+        List<Ball> ballsToMove = new List<Ball>();  // balls to move down
+        foreach (var ball in balls)
+        {
+            if (ball != null)
+            {
+                ballsToMove.Add(ball);
+            }
+        }
+        balls.Clear();
 
+        foreach (var ball in ballsToMove)
+        {
+            AddBall(ball);
+        }
+
+    }
 }
 
