@@ -11,7 +11,7 @@ public class SpawnState : IBallState
     }
     public void OnActivate()
     {
-        var ballColor = (GameColors)Random.Range(0, System.Enum.GetValues(typeof(GameColors)).Length);
+        var ballColor = (GameColors)Random.Range(0, ball.colors.normalBallColors.Length);
         ball.SetColor(ballColor);
 
         ball.CurrentState = ball.inHTubeState;

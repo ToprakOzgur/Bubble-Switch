@@ -111,7 +111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3672692583745876838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.45, y: 0.33, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -183,11 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1095e51b17df401b83ad16630ef46e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors:
-  - {r: 0.990566, g: 0.032707386, b: 0.032707386, a: 1}
-  - {r: 0.03137256, g: 0.99215686, b: 0.15709263, a: 1}
-  - {r: 0.98767376, g: 1, b: 0.07843137, a: 1}
-  - {r: 0.03490892, g: 0.03137256, b: 0.99215686, a: 1}
+  colors: {fileID: 11400000, guid: 777f3d4f83ec04cf5b8b3d074cfe9f27, type: 2}
   ballColor: 0
   currentTube: {fileID: 0}
   selectionCircle: {fileID: 3262638354453133257}

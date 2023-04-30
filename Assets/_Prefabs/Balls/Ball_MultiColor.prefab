@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4355789938338865071
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3262638354453133257, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876838, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_Name
+      value: Ball_MultiColor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876839, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f633c7a8b1dbb449097593ec819e1b84, type: 3}
+    - target: {fileID: 3672692583745876839, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3672692583745876840, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -2109318749998318087, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+--- !u!1 &1047889199321771209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3672692583745876838, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+  m_PrefabInstance: {fileID: 4355789938338865071}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7038232520405905597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047889199321771209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a1ba662269c49fc8e40086a65928f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors: {fileID: 11400000, guid: 777f3d4f83ec04cf5b8b3d074cfe9f27, type: 2}
+  currentBallColor: 0
+  currentTube: {fileID: 0}
+  selectionCircle: {fileID: 1240151890509359206}
+--- !u!1 &1240151890509359206 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3262638354453133257, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+  m_PrefabInstance: {fileID: 4355789938338865071}
+  m_PrefabAsset: {fileID: 0}

@@ -21,7 +21,7 @@ public class InVTubeState : IBallState
 
         ball.StartCoroutine(ball.BounceAnimation(startPosition, targetPosition, duration));
 
-
+        ball.ActivateSpecialBallEffectInVTube();
     }
 
     public void OnDeactivate()

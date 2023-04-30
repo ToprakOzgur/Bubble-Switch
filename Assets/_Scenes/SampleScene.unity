@@ -1290,6 +1290,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: -2109318749998318087, guid: 7ce8d1676e3f84a779476c8a7d5e49d0, type: 3}
+  SpecialBallPrefab:
+  - {fileID: 6674285452649352385, guid: f17a11ac35e93464f877adc7262477f1, type: 3}
+  - {fileID: 7038232520405905597, guid: 09510a7e86c32423a9b1b38c804d075e, type: 3}
+  - {fileID: 2764584290757688566, guid: 9720ad6cdb72740b5b9c44064b2c805f, type: 3}
+  - {fileID: 9092781700077794630, guid: 724b065e78a8a4a1099e8cc73126206b, type: 3}
+  - {fileID: 659007041858917048, guid: 90071b82efe384cd49da80d3de323584, type: 3}
+  - {fileID: 34249921414764916, guid: f7d8a45b19afe449395430f40467c5b4, type: 3}
+  - {fileID: 4244448850776087391, guid: a56bc24cef6904b229bf38b2b3ab4927, type: 3}
   poolSize: 50
   spawnPoint: {fileID: 1311821426}
 --- !u!114 &1211083516

@@ -42,18 +42,18 @@ public abstract class GameBase
 
     public void CheckBallDrops()
     {
+        Debug.Log("CheckBallDrops");
         Managers.Game.SetState(typeof(NotSwitchableState));
 
+        List<Ball> dropBalls = new List<Ball>();
         foreach (var vTube in vTubes)
         {
 
             if (vTube.balls.Count > 0)
             {
-                List<Ball> dropBalls = new List<Ball>();
-
                 for (int i = 0; i < vTube.balls.Count; i++)
                 {
-                    if (vTube.balls[i].ballColor == vTube.tubeColor)
+                    if ((vTube.balls[i] is not BlockBall && vTube.balls[i].currentBallColor == vTube.tubeColor) || vTube.balls[i] is MultiColorBall)
                     {
                         dropBalls.Add(vTube.balls[i]);
                     }
@@ -70,17 +70,13 @@ public abstract class GameBase
                     ball.currentTube = null;
                     vTube.balls.Remove(ball);
                 }
-
-
                 if (dropBalls.Count > 0)
-                {
                     vTube.MoveDown();
-                    return;
-                }
             }
 
         }
-        Managers.Game.SetState(typeof(GamePlayState));
+        if (dropBalls.Count > 0)
+            Managers.Game.SetState(typeof(GamePlayState));
     }
     public void AddBall(Ball ball)
     {
@@ -135,11 +131,50 @@ public abstract class GameBase
         ball1.StartCoroutine(ball1.MoveAnimation(ball1.transform.position, ball2.transform.position, 0.2f));
         ball2.StartCoroutine(ball2.MoveAnimation(ball2.transform.position, tmpPos, 0.2f));
 
+        Managers.Game.StartCoroutine(Managers.Game.DelayExecuter(CheckBallDrops, 0.3f));
         return true;
     }
     public void ResetSelectedBalls()
     {
         selectedBalls[0].CurrentState = selectedBalls[0].selectableState;
         selectedBalls[0].CurrentState = selectedBalls[0].selectableState;
+    }
+
+    public void DeleteHorizontalLineAt(int getBallIndexInVtube)
+    {
+        foreach (var vTube in vTubes)
+        {
+            if (vTube.balls.Count > getBallIndexInVtube)
+            {
+
+                ResetABallFromVtube(vTube, getBallIndexInVtube);
+            }
+        }
+    }
+
+    public void DeleteAreaAt(int bombVtubeIndex, int getBallIndexInVtube)
+    {
+        // delete +1 and -1 index vertically and horizontally  adjacent  balls in Vtubes 
+
+        foreach (var vTube in vTubes)
+        {
+            if (Math.Abs(vTube.index - bombVtubeIndex) <= 1)
+            {
+                ResetABallFromVtube(vTube, getBallIndexInVtube);
+                ResetABallFromVtube(vTube, getBallIndexInVtube + 1);
+                ResetABallFromVtube(vTube, getBallIndexInVtube - 1);
+            }
+        }
+    }
+
+    public void ResetABallFromVtube(VTube vTube, int ballindex)
+    {
+        if (ballindex < 0 || ballindex >= vTube.balls.Count)
+            return;
+
+        vTube.balls[ballindex].currentTube = null;
+        vTube.balls[ballindex].gameObject.SetActive(false);
+        vTube.balls.RemoveAt(ballindex);
+        vTube.MoveDown();
     }
 }

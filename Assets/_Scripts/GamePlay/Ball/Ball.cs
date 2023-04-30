@@ -6,10 +6,10 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
 
-    public Color[] colors;
+    public Colors colors;
 
     [HideInInspector]
-    public GameColors ballColor;
+    public GameColors currentBallColor;
 
     [HideInInspector]
     public VTube currentTube;
@@ -26,7 +26,7 @@ public class Ball : MonoBehaviour
 
 
 
-    private IBallState currentState;
+    protected IBallState currentState;
     public IBallState CurrentState
     {
         get { return currentState; }
@@ -39,7 +39,7 @@ public class Ball : MonoBehaviour
     }
 
     public int GetBallIndexInVtube => currentTube.balls.IndexOf(this);
-    private void Awake()
+    protected void Awake()
     {
         containerState = new ContainerState(this);
         inHTubeState = new InHTubeState(this);
@@ -54,18 +54,18 @@ public class Ball : MonoBehaviour
     {
         CurrentState = spawnState;
     }
-    private void Update()
+    protected void Update()
     {
         CurrentState.OnUpdate();
     }
-    void OnMouseDown()
+    protected virtual void OnMouseDown()
     {
         CurrentState.OnMouseDown();
     }
-    public void SetColor(GameColors ballColor)
+    public virtual void SetColor(GameColors ballColor)
     {
-        this.ballColor = ballColor;
-        GetComponent<SpriteRenderer>().color = colors[(int)ballColor];
+        this.currentBallColor = ballColor;
+        GetComponent<SpriteRenderer>().color = colors.normalBallColors[(int)ballColor];
     }
     public IEnumerator BounceAnimation(Vector3 startPosition, Vector3 targetPosition, float duration, bool isBouncing = true)
     {
@@ -94,8 +94,10 @@ public class Ball : MonoBehaviour
         Managers.Game.SetState(typeof(GamePlayState));
     }
 
+    public virtual void ActivateSpecialBallEffectInVTube()
+    {
 
-
+    }
 }
 
 

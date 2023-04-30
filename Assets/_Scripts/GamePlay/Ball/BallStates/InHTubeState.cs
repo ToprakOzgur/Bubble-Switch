@@ -6,7 +6,7 @@ public class InHTubeState : IBallState
 {
     private readonly Ball ball;
 
-    public float speed = 5.0f;
+    public float speed = 3.0f;
 
     private float minDistance = 0.04f;
     private int currentWaypointIndex = 0;

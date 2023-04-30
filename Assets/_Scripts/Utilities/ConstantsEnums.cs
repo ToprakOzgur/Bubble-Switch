@@ -11,5 +11,7 @@ public enum GameColors
     Red,
     Green,
     Yellow,
-    Blue
+    Blue,
+    Multi,
+    None
 }

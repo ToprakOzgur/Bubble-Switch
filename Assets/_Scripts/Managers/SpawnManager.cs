@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public Ball ballPrefab;
+    public Ball[] SpecialBallPrefab;
     public int poolSize = 50;
     [SerializeField]
     private Transform spawnPoint;
@@ -54,7 +55,7 @@ public class SpawnManager : MonoBehaviour
         while (isSpawning)
         {
             GetBall().Spawn();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(5);
         }
 
     }

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c53d10dad5e42a1bf58fdffdaac4dc, type: 3}
+  m_Name: Colors
+  m_EditorClassIdentifier: 
+  normalBallColors:
+  - {r: 0.990566, g: 0.032707386, b: 0.032707386, a: 1}
+  - {r: 0.03137256, g: 0.99215686, b: 0.15709263, a: 1}
+  - {r: 0.98767376, g: 1, b: 0.07843137, a: 1}
+  - {r: 0.03137256, g: 0.28701338, b: 0.99215686, a: 1}
+  blockBallColor: {r: 0.5, g: 0.08726415, b: 0.08726415, a: 1}
