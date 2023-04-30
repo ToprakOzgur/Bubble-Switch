@@ -14,6 +14,9 @@ public class DropState : IBallState
     public void OnActivate()
     {
         ball.StartCoroutine(ball.MoveAnimation(ball.transform.position, Managers.WayPoints.dropPoint.position, dropSpeed));
+        //reset ball and return to pool 
+
+        ball.ActivateSpecialBallEffectInContainer();
     }
 
     public void OnDeactivate()

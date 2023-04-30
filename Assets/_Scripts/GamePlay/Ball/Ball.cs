@@ -98,7 +98,11 @@ public class Ball : MonoBehaviour
 
     public virtual void ActivateSpecialBallEffectInVTube()
     {
-
+        //overriding in child classes
+    }
+    public virtual void ActivateSpecialBallEffectInContainer()
+    {
+        //overriding in child classes
     }
 }
 

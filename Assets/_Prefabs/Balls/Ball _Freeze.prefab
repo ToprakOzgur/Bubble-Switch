@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colors: {fileID: 11400000, guid: 777f3d4f83ec04cf5b8b3d074cfe9f27, type: 2}
-  ballColor: 0
+  currentBallColor: 0
   currentTube: {fileID: 0}
   selectionCircle: {fileID: 3618007525705389517}
 --- !u!4 &3281576646544462188 stripped
@@ -96,6 +96,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3281576646544462188}
     m_Modifications:
+    - target: {fileID: 646955719144184566, guid: 7f33dad78efb6499fbcbda6b249c8f5f, type: 3}
+      propertyPath: m_SortingOrder
+      value: -4
+      objectReference: {fileID: 0}
     - target: {fileID: 1361715313788854633, guid: 7f33dad78efb6499fbcbda6b249c8f5f, type: 3}
       propertyPath: m_text
       value: F

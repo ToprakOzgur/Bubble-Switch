@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class SpawnManager : MonoBehaviour
     private Queue<Ball> objectPool = new Queue<Ball>();
 
     private bool isSpawning = true;
+    private float spawnSpecialEffectCoefficient = 1f;
 
     private void Awake()
     {
@@ -64,8 +66,36 @@ public class SpawnManager : MonoBehaviour
         while (isSpawning)
         {
             GetBall().Spawn();
-            yield return new WaitForSeconds(game.SpawnRate);
+            Debug.Log(game.SpawnRate * spawnSpecialEffectCoefficient);
+            yield return new WaitForSeconds(game.SpawnRate * spawnSpecialEffectCoefficient);
+        }
+    }
+
+    public void DecreaseSpawnRatio(float duration, int spawnSlowChangeRation)
+    {
+
+        IEnumerator DecreaseSpawnRatioCoroutine(float duration)
+        {
+            spawnSpecialEffectCoefficient = spawnSlowChangeRation;
+            yield return new WaitForSeconds(duration);
+            spawnSpecialEffectCoefficient = 1;
+        }
+        StartCoroutine(DecreaseSpawnRatioCoroutine(duration));
+    }
+
+    public void Freeze(int duration)
+    {
+        if (isSpawning == false)
+            return;
+
+        IEnumerator Freeze(float duration)
+        {
+            isSpawning = false;
+            yield return new WaitForSeconds(duration);
+            isSpawning = true;
+            StartCoroutine(SpawnLoop(Managers.Game.currentGame));
         }
 
+        StartCoroutine(Freeze(duration));
     }
 }

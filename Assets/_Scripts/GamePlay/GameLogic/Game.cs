@@ -195,5 +195,15 @@ public class Game
         vTube.MoveDown();
     }
 
+    public void SlowDownGame(int slowBallEffectDuration, int spawnSlowChangeRation)
+    {
+        //increase spawn ratio for slowBallEffectDuration seconds in spawn manager
+        Managers.Spawner.DecreaseSpawnRatio(slowBallEffectDuration, spawnSlowChangeRation);
 
+    }
+
+    public void Freeze(int slowBallEffectDuration)
+    {
+        Managers.Spawner.Freeze(slowBallEffectDuration);
+    }
 }
