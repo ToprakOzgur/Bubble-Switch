@@ -6,8 +6,6 @@ public class InHTubeState : IBallState
 {
     private readonly Ball ball;
 
-    public float speed = 3.0f;
-
     private float minDistance = 0.04f;
     private int currentWaypointIndex = 0;
     public InHTubeState(Ball ball)
@@ -45,7 +43,7 @@ public class InHTubeState : IBallState
             }
         }
 
-        ball.transform.position = Vector3.MoveTowards(ball.transform.position, Managers.WayPoints.points[currentWaypointIndex].position, speed * Time.deltaTime);
+        ball.transform.position = Vector3.MoveTowards(ball.transform.position, Managers.WayPoints.points[currentWaypointIndex].position, Managers.Game.gameSettings.ballSpeedInHtube * Time.deltaTime);
     }
 
 }

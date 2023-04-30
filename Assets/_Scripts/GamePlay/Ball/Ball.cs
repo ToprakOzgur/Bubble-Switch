@@ -78,7 +78,9 @@ public class Ball : MonoBehaviour
             yield return null;
         }
         CurrentState = selectableState;
-        Managers.Game.currentGame.CheckBallDrops();
+
+        if (GetBallIndexInVtube == 0)
+            Managers.Game.currentGame.CheckBallDrops();
 
     }
     public IEnumerator MoveAnimation(Vector3 startPosition, Vector3 targetPosition, float duration)

@@ -2,22 +2,39 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GameBase
+
+//Game class is responsible for the game logic.This is  Arcade game.the other game modes will inherit from this class
+public class Game
 {
     public static Action OnGameLost = delegate { };
     private VTube[] vTubes;
 
     private List<Ball> selectedBalls = new List<Ball>();
-    protected GameBase(VTube[] vTubes)
+
+    public Game(VTube[] vTubes)
     {
         this.vTubes = vTubes;
         ContainerState.OnBallInContainer += MoveToRandomTube;
-        Managers.Spawner.StartSpawn();
+
     }
-    ~GameBase()
+
+    ~Game()
     {
         ContainerState.OnBallInContainer -= MoveToRandomTube;
     }
+
+    public virtual float SpawnRate
+    {
+        get
+        {
+            //difficulty is a value between 0 to 1.  increases over time.
+            var difficulty = Mathf.Clamp01(Time.timeSinceLevelLoad / Managers.Game.gameSettings.secondsToMaxSpeed);
+
+            //returns a value between startSpawnRate and minSpawnRate based on difficulty
+            return Mathf.Lerp(Managers.Game.gameSettings.startSpawnRate, Managers.Game.gameSettings.minSpawnRate, difficulty);
+        }
+    }
+
 
     private void MoveToRandomTube(Ball ball)
     {
@@ -36,19 +53,18 @@ public abstract class GameBase
 
     }
 
-    public abstract bool didWin();
+    public virtual bool DidWin() { return false; }
 
-    public abstract bool didLost();
+    public virtual bool DidLost() { return false; }
 
     public void CheckBallDrops()
     {
-        Debug.Log("CheckBallDrops");
         Managers.Game.SetState(typeof(NotSwitchableState));
 
         List<Ball> dropBalls = new List<Ball>();
         foreach (var vTube in vTubes)
         {
-
+            List<Ball> currentTubeDrops = new List<Ball>();
             if (vTube.balls.Count > 0)
             {
                 for (int i = 0; i < vTube.balls.Count; i++)
@@ -56,6 +72,7 @@ public abstract class GameBase
                     if ((vTube.balls[i] is not BlockBall && vTube.balls[i].currentBallColor == vTube.tubeColor) || vTube.balls[i] is MultiColorBall)
                     {
                         dropBalls.Add(vTube.balls[i]);
+                        currentTubeDrops.Add(vTube.balls[i]);
                     }
                     else
                     {
@@ -70,7 +87,7 @@ public abstract class GameBase
                     ball.currentTube = null;
                     vTube.balls.Remove(ball);
                 }
-                if (dropBalls.Count > 0)
+                if (currentTubeDrops.Count > 0)
                     vTube.MoveDown();
             }
 
@@ -177,4 +194,6 @@ public abstract class GameBase
         vTube.balls.RemoveAt(ballindex);
         vTube.MoveDown();
     }
+
+
 }

@@ -25,6 +25,15 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        StartState.OnGameCreated += StartSpawn;
+    }
+    private void OnDisable()
+    {
+        StartState.OnGameCreated -= StartSpawn;
+    }
+
     public Ball GetBall()
     {
         if (objectPool.Count == 0)
@@ -46,16 +55,16 @@ public class SpawnManager : MonoBehaviour
         ball.gameObject.SetActive(false);
         objectPool.Enqueue(ball);
     }
-    public void StartSpawn()
+    public void StartSpawn(Game game)
     {
-        StartCoroutine(SpawnLoop());
+        StartCoroutine(SpawnLoop(game));
     }
-    IEnumerator SpawnLoop()
+    IEnumerator SpawnLoop(Game game)
     {
         while (isSpawning)
         {
             GetBall().Spawn();
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(game.SpawnRate);
         }
 
     }

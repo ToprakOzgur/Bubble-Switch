@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameSettings gameSettings;
     [HideInInspector]
-    public GameBase currentGame;
+    public Game currentGame;
     private BaseState currentState;
 
     public BaseState CurrentState
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
         currentState?.OnUpdate();
     }
 
-    private void GameCreated(GameBase game)
+    private void GameCreated(Game game)
     {
         currentGame = game;
         SetState(typeof(GamePlayState));
