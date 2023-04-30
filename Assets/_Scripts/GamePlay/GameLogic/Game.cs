@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -7,9 +8,9 @@ using UnityEngine;
 public class Game
 {
     public static Action OnGameLost = delegate { };
-    private VTube[] vTubes;
+    protected VTube[] vTubes;
 
-    private List<Ball> selectedBalls = new List<Ball>();
+    protected List<Ball> selectedBalls = new List<Ball>();
 
     public Game(VTube[] vTubes)
     {
@@ -34,9 +35,14 @@ public class Game
             return Mathf.Lerp(Managers.Game.gameSettings.startSpawnRate, Managers.Game.gameSettings.minSpawnRate, difficulty);
         }
     }
+    protected int GetTotalBallCountInVTubes()
+    {
 
+        return vTubes.Sum(vTube => vTube.balls.Count);
 
-    private void MoveToRandomTube(Ball ball)
+    }
+
+    protected void MoveToRandomTube(Ball ball)
     {
 
         var emptyVTubes = Array.FindAll(vTubes, vTube => !vTube.IsFull);
@@ -52,10 +58,6 @@ public class Game
         emptyVTubes[randomIndex].AddBall(ball);
 
     }
-
-    public virtual bool DidWin() { return false; }
-
-    public virtual bool DidLost() { return false; }
 
     public void CheckBallDrops()
     {
@@ -94,6 +96,8 @@ public class Game
         }
         if (dropBalls.Count > 0)
             Managers.Game.SetState(typeof(GamePlayState));
+
+
     }
     public void AddBall(Ball ball)
     {
@@ -112,7 +116,7 @@ public class Game
         selectedBalls.Remove(ball);
     }
 
-    private bool Switch(Ball ball1, Ball ball2)
+    protected bool Switch(Ball ball1, Ball ball2)
     {
         //balls are not in same row
         if (ball1.GetBallIndexInVtube != ball2.GetBallIndexInVtube)

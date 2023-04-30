@@ -15,4 +15,5 @@ MonoBehaviour:
   startSpawnRate: 5
   minSpawnRate: 1
   secondsToMaxSpeed: 100
-  ballSpeedInHtube: 3
+  zenStartSpawnRate: 5
+  ballSpeedInHtube: 5

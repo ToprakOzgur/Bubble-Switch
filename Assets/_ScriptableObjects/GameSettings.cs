@@ -10,8 +10,13 @@ public class GameSettings : ScriptableObject
     public int startSpawnRate;
     public int minSpawnRate;
 
+
     [Tooltip("Time to Reach maximum spawn rate in seconds")]
     public int secondsToMaxSpeed;
+
+
+    [Header("Zen Mode Game Settings")]
+    public int zenStartSpawnRate;
 
     [Header("General Game Settings")]
 

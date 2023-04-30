@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InVTubeState : IBallState
 {
+
     private readonly Ball ball;
     private const float BallBounceTimeCoeff = 0.1f;
     public InVTubeState(Ball ball)

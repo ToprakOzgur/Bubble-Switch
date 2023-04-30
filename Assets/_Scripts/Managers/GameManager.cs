@@ -6,6 +6,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameSettings gameSettings;
+    public AdventureData adventureData;
+
     [HideInInspector]
     public Game currentGame;
     private BaseState currentState;
