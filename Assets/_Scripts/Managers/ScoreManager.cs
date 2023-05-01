@@ -16,18 +16,17 @@ public class ScoreManager : MonoBehaviour
     {
         DropState.OnBallDropped += BallDropped;
         Game.OnMultipleDrop += MultipleDrop;
+        Game.OnBallBombed += BallDropped;
     }
     private void OnDisable()
     {
         DropState.OnBallDropped -= BallDropped;
         Game.OnMultipleDrop -= MultipleDrop;
+        Game.OnBallBombed -= BallDropped;
     }
-
-
 
     private void BallDropped()
     {
-
         AddScore(ballDropScore);
     }
     private void MultipleDrop(int count)

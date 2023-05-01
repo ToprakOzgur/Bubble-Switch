@@ -8,6 +8,17 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     protected TextMeshProUGUI scoreText;
+
+    [SerializeField]
+    private GameObject gameModeSelectPanel;
+    private void OnEnable()
+    {
+        Game.OnGameLost += () => scoreText.text = "GAME OVER";
+    }
+    private void OnDisable()
+    {
+        Game.OnGameLost -= () => scoreText.text = "GAME OVER";
+    }
     private void Start()
     {
 
@@ -16,5 +27,23 @@ public class UIManager : MonoBehaviour
     public void SetScore(int score)
     {
         scoreText.text = "SCORE : " + score.ToString();
+    }
+
+    public void StartArcadeGame()
+    {
+        gameModeSelectPanel.SetActive(false);
+        Managers.Game.StartArcadeGame();
+    }
+    public void StartZenGame()
+    {
+        gameModeSelectPanel.SetActive(false);
+        Managers.Game.StartZenGame();
+
+    }
+    public void StartAdventureGame()
+    {
+        gameModeSelectPanel.SetActive(false);
+        Managers.Game.StartAdventureGame();
+
     }
 }

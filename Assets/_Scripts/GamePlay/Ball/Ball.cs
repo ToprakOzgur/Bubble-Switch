@@ -24,6 +24,7 @@ public class Ball : MonoBehaviour
     [HideInInspector] public IBallState selectedState;
     [HideInInspector] public IBallState selectableState;
 
+    [HideInInspector] public IBallState gameOverState;
 
 
     protected IBallState currentState;
@@ -51,6 +52,7 @@ public class Ball : MonoBehaviour
         dropState = new DropState(this);
         selectedState = new SelectedState(this);
         selectableState = new SelectableState(this);
+        gameOverState = new BallGameOverState(this);
     }
     public void Spawn()
     {
@@ -95,7 +97,7 @@ public class Ball : MonoBehaviour
             transform.position = Vector3.Lerp(startPosition, targetPosition, t);
             yield return null;
         }
-        Managers.Game.SetState(typeof(GamePlayState));
+
     }
 
     public virtual void ActivateSpecialBallEffectInVTube()
@@ -105,6 +107,19 @@ public class Ball : MonoBehaviour
     public virtual void ActivateSpecialBallEffectInContainer()
     {
         //overriding in child classes
+    }
+
+
+    public void MoveToEmptySlots()
+    {
+        transform.SetParent(currentTube.transform);
+
+        Vector3 startPosition = transform.position;
+        var YOffSet = Vector3.up * 0.25f;
+        var targetPosition = currentTube.startPoint.position + YOffSet + Vector3.up * (currentTube.balls.Count - 1) * ((currentTube.endPoint.position.y - currentTube.startPoint.position.y) / currentTube.MaxBallCount);
+        var duration = 0.2f;
+
+        StartCoroutine(MoveAnimation(startPosition, targetPosition, duration));
     }
 }
 

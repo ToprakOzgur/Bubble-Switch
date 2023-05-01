@@ -30,6 +30,7 @@ public class VTube : MonoBehaviour
 
     public void MoveDown()
     {
+
         List<Ball> ballsToMove = new List<Ball>();  // balls to move down
         foreach (var ball in balls)
         {
@@ -42,8 +43,11 @@ public class VTube : MonoBehaviour
 
         foreach (var ball in ballsToMove)
         {
-            AddBall(ball);
+            balls.Add(ball);
+            ball.currentTube = this;
+            ball.MoveToEmptySlots();
         }
+
 
     }
 }

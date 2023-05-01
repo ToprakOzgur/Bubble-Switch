@@ -7,12 +7,15 @@ public class InVTubeState : IBallState
 
     private readonly Ball ball;
     private const float BallBounceTimeCoeff = 0.1f;
+
+
     public InVTubeState(Ball ball)
     {
         this.ball = ball;
     }
     public void OnActivate()
     {
+
         ball.transform.SetParent(ball.currentTube.transform);
 
         Vector3 startPosition = ball.currentTube.endPoint.transform.position;

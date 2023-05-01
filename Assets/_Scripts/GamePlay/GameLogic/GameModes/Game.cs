@@ -9,15 +9,19 @@ public class Game
 {
     public static Action OnGameLost = delegate { };
     public static Action<int> OnMultipleDrop = delegate { };
+    public static event Action OnBallBombed = delegate { };
     protected VTube[] vTubes;
 
+    #region  Logic Controllers
+    protected SwitchBallController switchBallController = new SwitchBallController();
+    protected BallDropController ballDropController = new BallDropController();
+    #endregion
     protected List<Ball> selectedBalls = new List<Ball>();
 
     public Game(VTube[] vTubes)
     {
         this.vTubes = vTubes;
         ContainerState.OnBallInContainer += MoveToRandomTube;
-
     }
 
     ~Game()
@@ -38,19 +42,16 @@ public class Game
     }
     protected int GetTotalBallCountInVTubes()
     {
-
         return vTubes.Sum(vTube => vTube.balls.Count);
-
     }
 
     protected void MoveToRandomTube(Ball ball)
     {
-
         var emptyVTubes = Array.FindAll(vTubes, vTube => !vTube.IsFull);
 
         if (emptyVTubes.Length == 0)
         {
-            Debug.Log("Game Over");
+            MakeBallsDelesectable();
             OnGameLost();
             return;
         }
@@ -60,50 +61,24 @@ public class Game
 
     }
 
+    private void MakeBallsDelesectable()
+    {
+
+        foreach (var vtube in vTubes)
+        {
+            foreach (var ball in vtube.balls)
+            {
+                ball.CurrentState = ball.gameOverState;
+            }
+        }
+    }
+
     public void CheckBallDrops()
     {
-        Managers.Game.SetState(typeof(NotSwitchableState));
+        var dropBalls = ballDropController.CheckBallDrops(vTubes);
 
-        List<Ball> dropBalls = new List<Ball>();
-        foreach (var vTube in vTubes)
-        {
-            List<Ball> currentTubeDrops = new List<Ball>();
-            if (vTube.balls.Count > 0)
-            {
-                for (int i = 0; i < vTube.balls.Count; i++)
-                {
-                    if ((vTube.balls[i] is not BlockBall && vTube.balls[i].currentBallColor == vTube.tubeColor) || vTube.balls[i] is MultiColorBall)
-                    {
-                        dropBalls.Add(vTube.balls[i]);
-                        currentTubeDrops.Add(vTube.balls[i]);
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                }
-
-                foreach (var ball in dropBalls)
-                {
-                    ball.CurrentState = ball.dropState;
-                    ball.currentTube = null;
-                    vTube.balls.Remove(ball);
-                }
-                if (currentTubeDrops.Count > 0)
-                    vTube.MoveDown();
-            }
-
-        }
-
-        if (dropBalls.Count > 1)
-            OnMultipleDrop(dropBalls.Count);
-
-        if (dropBalls.Count > 0)
-            Managers.Game.SetState(typeof(GamePlayState));
-
-
-
+        if (dropBalls > 1)
+            OnMultipleDrop(dropBalls);
 
     }
     public void AddBall(Ball ball)
@@ -115,7 +90,6 @@ public class Game
             if (!Switch(selectedBalls[0], selectedBalls[1]))
                 Managers.Game.StartCoroutine(Managers.Game.DelayExecuter(ResetSelectedBalls, 0.2f));
 
-
         }
     }
     public void RemoveBall(Ball ball)
@@ -126,41 +100,7 @@ public class Game
     protected bool Switch(Ball ball1, Ball ball2)
     {
         //balls are not in same row
-        if (ball1.GetBallIndexInVtube != ball2.GetBallIndexInVtube)
-            return false;
-
-        //balls are in the same v-Tube.
-        if (ball1.currentTube.index == ball2.currentTube.index)
-            return false;
-
-        //balls are in not in adjacent v-Tubes.
-        if (Mathf.Abs(ball1.currentTube.index - ball2.currentTube.index) > 1)
-            return false;
-
-
-        int index = ball1.GetBallIndexInVtube;
-
-        ball1.currentTube.balls.Remove(ball1);
-        ball2.currentTube.balls.Remove(ball2);
-
-        ball1.currentTube.balls.Insert(index, ball2);
-        ball2.currentTube.balls.Insert(index, ball1);
-
-        var tmpTube = ball1.currentTube;
-
-        ball1.currentTube = ball2.currentTube;
-        ball2.currentTube = tmpTube;
-
-        ball1.CurrentState = ball1.selectableState;
-        ball2.CurrentState = ball2.selectableState;
-
-        var tmpPos = ball1.transform.position;
-
-        ball1.StartCoroutine(ball1.MoveAnimation(ball1.transform.position, ball2.transform.position, 0.2f));
-        ball2.StartCoroutine(ball2.MoveAnimation(ball2.transform.position, tmpPos, 0.2f));
-
-        Managers.Game.StartCoroutine(Managers.Game.DelayExecuter(CheckBallDrops, 0.3f));
-        return true;
+        return switchBallController.Switch(ball1, ball2, this);
     }
     public void ResetSelectedBalls()
     {
@@ -173,10 +113,7 @@ public class Game
         foreach (var vTube in vTubes)
         {
             if (vTube.balls.Count > getBallIndexInVtube)
-            {
-
-                ResetABallFromVtube(vTube, getBallIndexInVtube);
-            }
+                ResetExplodedBallFromVtube(vTube, getBallIndexInVtube);
         }
     }
 
@@ -188,31 +125,45 @@ public class Game
         {
             if (Math.Abs(vTube.index - bombVtubeIndex) <= 1)
             {
-                ResetABallFromVtube(vTube, getBallIndexInVtube);
-                ResetABallFromVtube(vTube, getBallIndexInVtube + 1);
-                ResetABallFromVtube(vTube, getBallIndexInVtube - 1);
+                if (vTube.balls.Count > getBallIndexInVtube && vTube.balls[getBallIndexInVtube] != null)
+                    ResetExplodedBallFromVtube(vTube.balls[getBallIndexInVtube], vTube);
+
+                if (vTube.balls.Count > getBallIndexInVtube && getBallIndexInVtube > 0 && vTube.balls[getBallIndexInVtube - 1] != null)
+                    ResetExplodedBallFromVtube(vTube.balls[getBallIndexInVtube - 1], vTube);
+
+                if (vTube.balls.Count > getBallIndexInVtube && getBallIndexInVtube < vTube.balls.Count - 1 && vTube.balls[getBallIndexInVtube + 1] != null)
+                    ResetExplodedBallFromVtube(vTube.balls[getBallIndexInVtube + 1], vTube);
+
             }
+        }
+        foreach (var vTube in vTubes)
+        {
+            Managers.Game.StartCoroutine(Managers.Game.DelayExecuter(vTube.MoveDown, 0.3f));
         }
     }
 
-    public void ResetABallFromVtube(VTube vTube, int ballindex)
+    public void ResetExplodedBallFromVtube(Ball ball, VTube vtube)
     {
-        if (ballindex < 0 || ballindex >= vTube.balls.Count)
-            return;
+        ball.currentTube = null;
+        ball.gameObject.SetActive(false);
+        vtube.balls.Remove(ball);
 
+        OnBallBombed();
+    }
+    public void ResetExplodedBallFromVtube(VTube vTube, int ballindex)
+    {
         vTube.balls[ballindex].currentTube = null;
         vTube.balls[ballindex].gameObject.SetActive(false);
         vTube.balls.RemoveAt(ballindex);
         vTube.MoveDown();
+        OnBallBombed();
     }
-
     public void SlowDownGame(int slowBallEffectDuration, int spawnSlowChangeRation)
     {
         //increase spawn ratio for slowBallEffectDuration seconds in spawn manager
         Managers.Spawner.DecreaseSpawnRatio(slowBallEffectDuration, spawnSlowChangeRation);
 
     }
-
     public void Freeze(int slowBallEffectDuration)
     {
         Managers.Spawner.Freeze(slowBallEffectDuration);

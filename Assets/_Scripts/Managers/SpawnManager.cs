@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
 {
 
     public Ball[] ballPrefabs;
-    public int poolSize = 8;
+    public int poolSize;
 
 
     [SerializeField]
@@ -41,18 +41,20 @@ public class SpawnManager : MonoBehaviour
 
     private void OnEnable()
     {
-        StartState.OnGameCreated += StartSpawn;
+        GameManager.OnGameCreated += StartSpawn;
+        Game.OnGameLost += () => isSpawning = false;
     }
     private void OnDisable()
     {
-        StartState.OnGameCreated -= StartSpawn;
+        GameManager.OnGameCreated -= StartSpawn;
+        Game.OnGameLost -= () => isSpawning = false;
     }
 
     public Ball GetBall(int index)
     {
         if (objectPool[index].Count == 0)
         {
-            var ball = Instantiate(ballPrefabs[0], spawnPoint.position, Quaternion.identity);
+            var ball = Instantiate(ballPrefabs[index], spawnPoint.position, Quaternion.identity);
             ball.transform.SetParent(spawnPoint);
             ball.gameObject.SetActive(false);
             objectPool[index].Enqueue(ball);

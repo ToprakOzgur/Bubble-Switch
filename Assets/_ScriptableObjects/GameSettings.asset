@@ -18,10 +18,10 @@ MonoBehaviour:
   zenStartSpawnRate: 5
   ballSpeedInHtube: 5
   normalBallsSpawnRate: 50
-  freezeSpawnRate: 0
-  multiSpawnRate: 0
-  slowSpawnRate: 0
-  LaserSpawnRate: 0
-  bombSpawnRate: 0
-  noSwitchSpawnRate: 0
-  blockSpawnRate: 0
+  freezeSpawnRate: 5
+  multiSpawnRate: 5
+  slowSpawnRate: 5
+  LaserSpawnRate: 5
+  bombSpawnRate: 5
+  noSwitchSpawnRate: 5
+  blockSpawnRate: 5
