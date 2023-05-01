@@ -8,9 +8,9 @@ public class StartState : BaseState
     {
         //Todo: create game for selected mode
         var vTubes = FindObjectsOfType<VTube>();
-        // var currentGame = new Game(vTubes);
+        var currentGame = new Game(vTubes);
         // var currentGame = new ZenGame(vTubes);
-        var currentGame = new AdventureGame(vTubes);
+        // var currentGame = new AdventureGame(vTubes);
 
         OnGameCreated(currentGame);
         // Managers.Spawner.StartSpawn();

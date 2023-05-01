@@ -18,7 +18,7 @@ public class AdventureGame : Game
             for (int j = 0; j < data.colorData.tubes[i].balls.Length; j++)
             {
                 //manually add balls to the tube
-                var ball = Managers.Spawner.GetBall();
+                var ball = Managers.Spawner.GetBall(0);
                 ball.SetColor(data.colorData.tubes[i].balls[j]);
                 v.balls.Add(ball);
                 ball.currentTube = v;

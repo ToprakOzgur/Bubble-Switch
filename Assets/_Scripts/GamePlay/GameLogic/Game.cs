@@ -8,6 +8,7 @@ using UnityEngine;
 public class Game
 {
     public static Action OnGameLost = delegate { };
+    public static Action<int> OnMultipleDrop = delegate { };
     protected VTube[] vTubes;
 
     protected List<Ball> selectedBalls = new List<Ball>();
@@ -94,8 +95,14 @@ public class Game
             }
 
         }
+
+        if (dropBalls.Count > 1)
+            OnMultipleDrop(dropBalls.Count);
+
         if (dropBalls.Count > 0)
             Managers.Game.SetState(typeof(GamePlayState));
+
+
 
 
     }

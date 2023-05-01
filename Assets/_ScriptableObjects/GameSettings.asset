@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpawnRate: 5
   minSpawnRate: 1
-  secondsToMaxSpeed: 100
+  secondsToMaxSpeed: 240
   zenStartSpawnRate: 5
   ballSpeedInHtube: 5
+  normalBallsSpawnRate: 50
+  freezeSpawnRate: 0
+  multiSpawnRate: 0
+  slowSpawnRate: 0
+  LaserSpawnRate: 0
+  bombSpawnRate: 0
+  noSwitchSpawnRate: 0
+  blockSpawnRate: 0

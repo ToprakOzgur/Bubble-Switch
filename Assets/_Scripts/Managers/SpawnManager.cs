@@ -5,26 +5,38 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public Ball ballPrefab;
-    public Ball[] SpecialBallPrefab;
-    public int poolSize = 50;
+
+    public Ball[] ballPrefabs;
+    public int poolSize = 8;
+
+
     [SerializeField]
     private Transform spawnPoint;
 
-    private Queue<Ball> objectPool = new Queue<Ball>();
+    private Queue<Ball>[] objectPool = new Queue<Ball>[8];
 
     private bool isSpawning = true;
     private float spawnSpecialEffectCoefficient = 1f;
 
     private void Awake()
     {
-        for (int i = 0; i < poolSize; i++)
+        for (int i = 0; i < objectPool.Length; i++)
         {
-            var ball = Instantiate(ballPrefab, spawnPoint.position, Quaternion.identity);
-            ball.transform.SetParent(spawnPoint);
-            ball.gameObject.SetActive(false);
-            objectPool.Enqueue(ball);
+            objectPool[i] = new Queue<Ball>();
         }
+
+        for (int j = 0; j < ballPrefabs.Length; j++)
+        {
+            for (int i = 0; i < poolSize; i++)
+            {
+                var ball = Instantiate(ballPrefabs[j], spawnPoint.position, Quaternion.identity);
+                ball.transform.SetParent(spawnPoint);
+                ball.gameObject.SetActive(false);
+                objectPool[j].Enqueue(ball);
+            }
+        }
+
+        Managers.Game.gameSettings.GetBallSpawnPercent(Managers.Game.gameSettings.normalBallsSpawnRate);
     }
 
     private void OnEnable()
@@ -36,26 +48,26 @@ public class SpawnManager : MonoBehaviour
         StartState.OnGameCreated -= StartSpawn;
     }
 
-    public Ball GetBall()
+    public Ball GetBall(int index)
     {
-        if (objectPool.Count == 0)
+        if (objectPool[index].Count == 0)
         {
-            var ball = Instantiate(ballPrefab, spawnPoint.position, Quaternion.identity);
+            var ball = Instantiate(ballPrefabs[0], spawnPoint.position, Quaternion.identity);
             ball.transform.SetParent(spawnPoint);
             ball.gameObject.SetActive(false);
-            objectPool.Enqueue(ball);
+            objectPool[index].Enqueue(ball);
         }
 
-        var pooledBall = objectPool.Dequeue();
+        var pooledBall = objectPool[index].Dequeue();
         pooledBall.gameObject.SetActive(true);
 
         return pooledBall;
     }
 
-    public void ReturnBall(Ball ball)
+    public void ReturnBall(Ball ball, int index)
     {
         ball.gameObject.SetActive(false);
-        objectPool.Enqueue(ball);
+        objectPool[index].Enqueue(ball);
     }
     public void StartSpawn(Game game)
     {
@@ -65,10 +77,33 @@ public class SpawnManager : MonoBehaviour
     {
         while (isSpawning)
         {
-            GetBall().Spawn();
-            Debug.Log(game.SpawnRate * spawnSpecialEffectCoefficient);
+            var ballType = RandomSpawn();
+            GetBall(ballType).Spawn();
             yield return new WaitForSeconds(game.SpawnRate * spawnSpecialEffectCoefficient);
         }
+    }
+    private int RandomSpawn()
+    {
+        int rand = UnityEngine.Random.Range(0, 100);
+
+        int rangeStart = 0;
+        int result = 0;
+        for (int i = 0; i < ballPrefabs.Length; i++)
+        {
+            // Calculate this object's chance range.
+            int rangeEnd = rangeStart + Managers.Game.gameSettings.GetChancesToSpawn()[i];
+
+            if (rand >= rangeStart && rand < rangeEnd)
+            {
+                // If random number inside the range,
+                // create the corresponding prefab.
+                result = i;
+            }
+
+            // Next range right after the current one.
+            rangeStart = rangeEnd;
+        }
+        return result;
     }
 
     public void DecreaseSpawnRatio(float duration, int spawnSlowChangeRation)

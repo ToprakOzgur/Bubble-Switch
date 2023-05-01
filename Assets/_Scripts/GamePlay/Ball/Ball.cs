@@ -32,6 +32,8 @@ public class Ball : MonoBehaviour
         get { return currentState; }
         set
         {
+            if (currentState == value)
+                return;
             currentState?.OnDeactivate();
             currentState = value;
             currentState?.OnActivate();
