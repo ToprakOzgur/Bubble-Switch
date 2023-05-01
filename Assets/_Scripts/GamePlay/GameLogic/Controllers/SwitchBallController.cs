@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class SwitchBallController
 {
+
+    /// <summary>
+    /// Switch two balls
+    /// @arg ball1: first ball
+    /// @arg ball2: second ball
+    /// @return true if balls are switched
+    /// </summary>
     public bool Switch(Ball ball1, Ball ball2, Game game)
     {
         //balls are not in same row

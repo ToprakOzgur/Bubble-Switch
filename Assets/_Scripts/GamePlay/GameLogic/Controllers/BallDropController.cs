@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BallDropController
 {
+    /// <summary>
+    /// Check if there is any ball to drop
+    /// @arg vTubes: array of tubes
+    /// @return number of balls dropped
+    /// </summary>
     public int CheckBallDrops(VTube[] vTubes)
     {
 
@@ -24,7 +29,6 @@ public class BallDropController
                     {
                         break;
                     }
-
                 }
 
                 foreach (var ball in dropBalls)
@@ -38,9 +42,6 @@ public class BallDropController
             }
 
         }
-
         return dropBalls.Count;
-
-
     }
 }

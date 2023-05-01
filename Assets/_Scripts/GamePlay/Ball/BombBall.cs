@@ -14,8 +14,6 @@ public class BombBall : Ball
     [SerializeField]
     protected int tickingTime;
 
-
-
     public override void SetColor(GameColors ballColor)
     {
         this.currentBallColor = GameColors.None;

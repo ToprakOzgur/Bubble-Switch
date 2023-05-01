@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BlockBall : Ball
 {
+
     public override void SetColor(GameColors ballColor)
     {
         this.currentBallColor = GameColors.None;

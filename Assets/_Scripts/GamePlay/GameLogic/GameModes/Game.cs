@@ -63,7 +63,6 @@ public class Game
 
     private void MakeBallsDelesectable()
     {
-
         foreach (var vtube in vTubes)
         {
             foreach (var ball in vtube.balls)
@@ -79,7 +78,11 @@ public class Game
 
         if (dropBalls > 1)
             OnMultipleDrop(dropBalls);
-
+    }
+    protected bool Switch(Ball ball1, Ball ball2)
+    {
+        //balls are not in same row
+        return switchBallController.Switch(ball1, ball2, this);
     }
     public void AddBall(Ball ball)
     {
@@ -95,12 +98,6 @@ public class Game
     public void RemoveBall(Ball ball)
     {
         selectedBalls.Remove(ball);
-    }
-
-    protected bool Switch(Ball ball1, Ball ball2)
-    {
-        //balls are not in same row
-        return switchBallController.Switch(ball1, ball2, this);
     }
     public void ResetSelectedBalls()
     {

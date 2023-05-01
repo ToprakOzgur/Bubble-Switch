@@ -14,17 +14,14 @@ public class InHTubeState : IBallState
     }
     public void OnActivate()
     {
-
     }
 
     public void OnDeactivate()
     {
-
     }
 
     public void OnMouseDown()
     {
-
     }
 
     public void OnUpdate()

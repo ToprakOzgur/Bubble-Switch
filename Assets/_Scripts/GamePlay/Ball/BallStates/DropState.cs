@@ -24,7 +24,6 @@ public class DropState : IBallState
 
     public void OnDeactivate()
     {
-
     }
 
     public void OnMouseDown()
@@ -34,6 +33,5 @@ public class DropState : IBallState
 
     public void OnUpdate()
     {
-
     }
 }

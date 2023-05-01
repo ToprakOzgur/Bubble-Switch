@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class VTube : MonoBehaviour
 {
-
     public readonly int MaxBallCount = 10;
 
     public int index;
@@ -13,13 +12,9 @@ public class VTube : MonoBehaviour
     public List<Ball> balls = new List<Ball>();
 
     public Transform startPoint;
-
     public Transform endPoint;
-
     public GameColors tubeColor;
     public bool IsFull { get { return balls.Count == MaxBallCount; } }
-
-
 
     public void AddBall(Ball ball)
     {
@@ -28,8 +23,13 @@ public class VTube : MonoBehaviour
         ball.CurrentState = ball.inVTubeState;
     }
 
+    /// <summary>
+    /// Move balls down if there is empty slot
+    /// </summary>
+
     public void MoveDown()
     {
+
 
         List<Ball> ballsToMove = new List<Ball>();  // balls to move down
         foreach (var ball in balls)
@@ -47,8 +47,6 @@ public class VTube : MonoBehaviour
             ball.currentTube = this;
             ball.MoveToEmptySlots();
         }
-
-
     }
 }
 
