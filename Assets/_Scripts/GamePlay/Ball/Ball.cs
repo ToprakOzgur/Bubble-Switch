@@ -18,7 +18,6 @@ public class Ball : MonoBehaviour
     [HideInInspector] public IBallState containerState;
     [HideInInspector] public IBallState inHTubeState;
     [HideInInspector] public IBallState inVTubeState;
-    [HideInInspector] public IBallState switchTubeState;
     [HideInInspector] public IBallState spawnState;
     [HideInInspector] public IBallState dropState;
     [HideInInspector] public IBallState selectedState;
@@ -47,7 +46,6 @@ public class Ball : MonoBehaviour
         containerState = new ContainerState(this);
         inHTubeState = new InHTubeState(this);
         inVTubeState = new InVTubeState(this);
-        switchTubeState = new SwitchTubesState(this);
         spawnState = new SpawnState(this);
         dropState = new DropState(this);
         selectedState = new SelectedState(this);
